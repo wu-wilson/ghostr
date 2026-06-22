@@ -18,7 +18,7 @@ Dark, editorial audit aesthetic. No UI component libraries — build all compone
 
 ## Visual Language
 
-- Display/headlines/numbers use **Archivo** (weights 500–900); body/UI uses **IBM Plex Mono** (400–600). Base 14px, line-height 1.5.
+- Display/headlines/numbers use **Archivo** (weights 600–900); body/UI uses **IBM Plex Mono** (400–600). Base 14px, line-height 1.5.
 - Big first-seen ages and stat-strip figures are large Archivo numbers (`tabular-nums`). Micro-labels are uppercase tracked mono.
 - Square corners, hairline borders from the border ramp, surface-tier shifts (`bg-page` vs panel) for depth — no shadows. The expanded detail panel separates with a **dashed top border**.
 - Headline accent: "haunted" in full-ink `#edede6`, surrounding words in muted `#82827a` — via tokens, not literal hex.

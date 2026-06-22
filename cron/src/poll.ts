@@ -29,8 +29,9 @@ function delay(ms: number): Promise<void> {
 }
 
 /**
- * Run `tasks` with bounded concurrency. A tiny inline limiter (no `p-limit`, which is
- * ESM-only) drains a shared cursor across `limit` workers.
+ * Run `tasks` with bounded concurrency via a tiny inline limiter (no `p-limit`): up to
+ * `limit` workers drain a shared cursor, staggering every request past the first batch
+ * by `POLITE_DELAY_MS` to stay polite to upstream hosts.
  * @param tasks - The unit-of-work functions to run
  * @param limit - Maximum number running at once
  * @returns Resolves once every task settles

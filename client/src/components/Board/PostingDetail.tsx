@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { CompanyFacts } from './CompanyFacts';
 import { RepostTimeline } from './RepostTimeline';
@@ -26,7 +26,8 @@ const ColumnLabel: React.FC<{ children: React.ReactNode }> = ({ children }) => (
  * @returns The detail panel
  */
 export const PostingDetail: React.FC<PostingDetailProps> = ({ row }) => {
-  const pills = tagPills(row);
+  const sentence = useMemo(() => recordSentence(row), [row]);
+  const pills = useMemo(() => tagPills(row), [row]);
 
   return (
     <div
@@ -37,7 +38,7 @@ export const PostingDetail: React.FC<PostingDetailProps> = ({ row }) => {
       <div>
         <ColumnLabel>the record</ColumnLabel>
         <p className="mt-3 text-muted-1" style={{ fontSize: '14px', lineHeight: 1.7 }}>
-          {recordSentence(row)}
+          {sentence}
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
           {pills.map((pill) => (

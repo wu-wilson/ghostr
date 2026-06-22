@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { GITHUB_URL } from '../../constants/config';
 import { DURATION } from '../../constants/animations';
+import { GITHUB_URL } from '../../constants/config';
 
 /**
  * "source on GitHub" link with an octocat mark, used in both footers.

@@ -45,8 +45,8 @@
 #### Cron
 
 - Node.js worker (TS)
-- undici / native fetch + Zod
-- p-limit (polite concurrency)
+- Native `fetch` + Zod
+- Inline concurrency limiter
 - pg driver
 
 ## 🛠️ Local Setup

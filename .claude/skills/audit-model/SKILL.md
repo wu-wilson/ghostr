@@ -17,7 +17,7 @@ How Ghostr turns raw daily observations into the public board. Source of truth: 
 
 - `first_seen_on` is strictly the date Ghostr **first observed** the listing on a feed — never backfilled from any ATS posting/created date (the adapters don't even read those fields).
 - Age = `current_date − first_seen_on`, in days, computed in **UTC** (the cron's "today" and the DB's `current_date` must agree, or ages drift by one).
-- Consequence: until polling history accrues, the board is young and sparse — most rows read near `0d`, few reposts. This is intentional; the methodology copy states it honestly. Stats start small (e.g. ~14 companies, a few hundred postings, single-digit-day median early on) — never hardcode dramatic mock numbers.
+- Consequence: until polling history accrues, the board is young and sparse — most rows read near `0d`, few reposts. This is intentional; the methodology copy states it honestly. Stats start small (~46 seeded companies, a few hundred postings, single-digit-day median early on) — never hardcode dramatic mock numbers.
 
 ## Repost detection (linking listings into jobs)
 

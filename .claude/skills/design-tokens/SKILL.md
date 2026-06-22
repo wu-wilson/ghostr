@@ -41,7 +41,7 @@ The headline accent word "haunted" renders in full-ink `#edede6` against the `#8
 
 Both from Google Fonts.
 
-- **Display / headlines / numbers:** `Archivo`, weights 500–900. First-seen ages, stat-strip figures, the `01`–`05` methodology numerals. Use `tabular-nums` on numbers.
+- **Display / headlines / numbers:** `Archivo`, weights 600–900. First-seen ages, stat-strip figures, the `01`–`05` methodology numerals. Use `tabular-nums` on numbers.
 - **Body / UI:** `IBM Plex Mono`, weights 400–600. Micro-labels are uppercase + tracked.
 - Base size 14px, line-height 1.5 (set on `body`).
 

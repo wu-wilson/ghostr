@@ -24,12 +24,8 @@ export function formatAge(days: number): string {
   return `${days}d`;
 }
 
-/**
- * The most recent relist date, or null when never reposted.
- * @param row - The posting
- * @returns The latest 'YYYY-MM-DD' repost date, or null
- */
-export function latestReposted(row: PostingRow): string | null {
+/** The most recent relist date ('YYYY-MM-DD'), or null when never reposted. */
+function latestReposted(row: PostingRow): string | null {
   if (row.repostDates.length === 0) return null;
   return row.repostDates.reduce((max, d) => (d > max ? d : max));
 }

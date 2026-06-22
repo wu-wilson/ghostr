@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from 'express';
  * Express error-handling middleware — the single tail handler for the app.
  * A numeric `.status`/`.statusCode` on the error becomes the response code (default 500). The raw `err.message`
  * is only echoed to the client when `.isPublic === true`; everything else is genericized to "Internal server error"
- * so upstream wording (pg, SDKs) never leaks. The full error (including stack) is logged server-side and never
+ * so raw pg wording never leaks. The full error (including stack) is logged server-side and never
  * returned to the client.
  * @param err - Error thrown or passed via `next(err)`; may carry `.status`/`.statusCode` and `.isPublic`
  * @param _req - Express request (unused but required by the 4-arg signature)

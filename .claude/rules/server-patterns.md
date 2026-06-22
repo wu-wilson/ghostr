@@ -21,7 +21,7 @@ paths:
 
 - `app.set('trust proxy', 1)` — Railway is one hop, so `req.ip` resolves to the real client (required for per-IP rate limiting). If fronted by Cloudflare, key off `CF-Connecting-IP`.
 - No security-header middleware: this is a JSON API and never serves HTML. Set HSTS at the edge if fronted by Cloudflare.
-- Per-IP read rate limit via `express-rate-limit` (in-memory), `config.readRateLimitPerHour` (default 200/hr/IP) across the GET endpoints.
+- Per-IP read rate limit via `express-rate-limit` (in-memory), `config.readRateLimitPerHour` (default 600/hr/IP) across the GET endpoints.
 - CORS allowlist via `config.allowedOrigins` (comma-separated env, `*` in dev).
 - **Never leak raw upstream/pg error messages.** `errorHandler` only echoes `err.message` when the thrown error carries `isPublic: true`; everything else becomes "Internal server error". Don't include Zod issue paths or pg wording in client responses.
 

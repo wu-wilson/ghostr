@@ -7,11 +7,7 @@ import { useGhostrStore } from '../store/ghostrStore';
 
 import { DURATION } from '../constants/animations';
 
-/**
- * Format an ISO timestamp as a short local "last poll" time.
- * @param iso - ISO timestamp string
- * @returns A compact day + time label (e.g. `Jun 22, 9:17 AM`)
- */
+/** Format an ISO timestamp as a compact local day + time label (e.g. `Jun 22, 9:17 AM`). */
 function formatPollTime(iso: string): string {
   return new Date(iso).toLocaleString(undefined, {
     month: 'short',

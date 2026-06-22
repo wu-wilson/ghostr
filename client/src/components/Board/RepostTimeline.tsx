@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { timelineModel } from '../../lib/audit';
 
@@ -15,7 +15,7 @@ interface RepostTimelineProps {
  * @returns The timeline column body
  */
 export const RepostTimeline: React.FC<RepostTimelineProps> = ({ row }) => {
-  const model = timelineModel(row);
+  const model = useMemo(() => timelineModel(row), [row]);
 
   return (
     <div>

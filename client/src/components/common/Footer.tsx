@@ -5,6 +5,7 @@ import { GitHubLink } from './GitHubLink';
 import { useGhostrStore } from '../../store/ghostrStore';
 
 import { formatCount } from '../../lib/format';
+
 import { DURATION } from '../../constants/animations';
 
 interface FooterProps {
