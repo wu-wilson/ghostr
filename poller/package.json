@@ -1,0 +1,23 @@
+{
+  "name": "ghostr-poller",
+  "version": "1.0.0",
+  "description": "Daily ATS feed poller for ghostr",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "ts-node-dev --transpile-only src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "poll": "npm start"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "pg": "^8.13.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.0",
+    "@types/pg": "^8.11.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.5.0"
+  }
+}

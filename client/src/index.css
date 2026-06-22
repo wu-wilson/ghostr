@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Color tokens stored as space-separated RGB channels (hex in comments) and consumed via
+     `rgb(var(--token) / <alpha-value>)` in tailwind.config.js, so opacity modifiers resolve. */
+
+  /* Surfaces */
+  --page: 18 18 16;     /* #121210 */
+  --raised: 16 16 9;    /* #101009 */
+  --black: 10 10 9;     /* #0a0a09 */
+
+  /* Primary ink */
+  --ink: 237 237 230;   /* #edede6 */
+
+  /* Muted text ramp, lightest to darkest */
+  --muted-1: 207 207 198; /* #cfcfc6 */
+  --muted-2: 166 166 154; /* #a6a69a */
+  --muted-3: 143 143 132; /* #8f8f84 */
+  --muted-4: 130 130 122; /* #82827a */
+  --muted-5: 107 104 98;  /* #6b6862 */
+  --muted-6: 92 92 84;    /* #5c5c54 */
+
+  /* Borders, dark to light */
+  --line-1: 26 26 21;   /* #1a1a15 */
+  --line-2: 38 38 31;   /* #26261f */
+  --line-3: 46 46 39;   /* #2e2e27 */
+  --line-4: 74 74 63;   /* #4a4a3f */
+}
+
+@layer base {
+  html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-page text-ink font-mono antialiased;
+    font-size: 14px;
+    line-height: 1.5;
+    overscroll-behavior: none;
+    /* Two faint radial glows (top-right + bottom-left) over a 4px-period scanline. */
+    background-image:
+      radial-gradient(60vw 60vw at 100% 0%, rgba(255, 255, 255, 0.05), transparent 70%),
+      radial-gradient(60vw 60vw at 0% 100%, rgba(255, 255, 255, 0.05), transparent 70%),
+      repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.016) 0,
+        rgba(255, 255, 255, 0.016) 1px,
+        transparent 1px,
+        transparent 4px
+      );
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background: rgb(var(--ink));
+    color: rgb(var(--black));
+  }
+
+  *:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 1px rgb(var(--ink) / 0.6);
+  }
+}
+
+/* Blinking block cursor for the wordmark — hard on/off via steps(1). */
+@keyframes ghostr-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-ghostr-blink {
+  animation: ghostr-blink 1.1s steps(1) infinite;
+}
+
+/* Posting row grid — stacked grid-areas on mobile, six-column line on desktop. */
+.ghostr-row {
+  display: grid;
+  grid-template-columns: auto auto auto 1fr;
+  grid-template-areas:
+    't t t c'
+    'a r y s';
+}
+
+@media (min-width: 760px) {
+  .ghostr-row {
+    grid-template-columns: 96px minmax(0, 1fr) 116px 92px 116px 34px;
+    grid-template-areas: 'a t s r y c';
+  }
+}
+
+/* Expanded-row reveal — short fade + slide, kept under 300ms. */
+@keyframes ghostr-detail-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-detail-in {
+  animation: ghostr-detail-in 250ms ease forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-ghostr-blink,
+  .animate-detail-in {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  * {
+    transition-duration: 100ms !important;
+  }
+}
