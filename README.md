@@ -1,6 +1,6 @@
 ## ⚡ Overview
 
-[**Ghostr**](https://ghostr.dev) is a job-posting auditor: it polls public ATS feeds once a day, tracks every open listing over time, and detects relists — so it can surface each posting's *true* first-seen age and stale "ghost jobs" can't pass themselves off as posted today.
+[**Ghostr**](https://ghostr.dev) is a job-posting auditor: it polls public ATS feeds once a day, tracks every open listing over time, and detects relists — so it can surface each posting's _true_ first-seen age and stale "ghost jobs" can't pass themselves off as posted today.
 
 ## 🔭 Architecture
 
@@ -85,10 +85,10 @@ Deployed on [Railway](https://railway.app) as three services: the client ships a
 
 ## ⚙️ Configuration
 
-Every variable ships with a working default except `DATABASE_URL`, which the server and poller need to reach Postgres. `./launch.sh` runs on a fresh clone with no env files — override the rest only to change a default.
+Every variable ships with a working default — `./launch.sh` runs on a fresh clone with no env files; override only to change a default.
 
 - **Local dev** — create `client/.env`, `server/.env`, or `poller/.env` (all gitignored).
-- **Production (Railway)** — variables are set in each service's **Variables** tab; `DATABASE_URL` is a reference variable to the shared Postgres plugin.
+- **Production (Railway)** — variables are set in each service's **Variables** tab.
 
 #### Client (`client/`)
 
@@ -100,19 +100,19 @@ Every variable ships with a working default except `DATABASE_URL`, which the ser
 
 | Variable                   | Default                              | Description                                                          |
 | -------------------------- | ------------------------------------ | -------------------------------------------------------------------- |
-| `PORT`                     | `3001`                               | API listen port. Auto-injected by Railway in production.            |
-| `DATABASE_URL`             | `postgresql://localhost:5432/ghostr` | Postgres connection. Read endpoints return 503 if unreachable.      |
+| `PORT`                     | `3001`                               | API listen port. Auto-injected by Railway in production.             |
+| `DATABASE_URL`             | `postgresql://localhost:5432/ghostr` | Postgres connection. Read endpoints return 503 if unreachable.       |
 | `ALLOWED_ORIGINS`          | `*`                                  | Comma-separated CORS allowlist. Set to `https://ghostr.dev` in prod. |
-| `READ_RATE_LIMIT_PER_HOUR` | `600`                                | Read requests/hr/IP across the GET endpoints.                       |
+| `READ_RATE_LIMIT_PER_HOUR` | `600`                                | Read requests/hr/IP across the GET endpoints.                        |
 
 #### Poller (`poller/`)
 
-| Variable             | Default                              | Description                                                              |
-| -------------------- | ------------------------------------ | ------------------------------------------------------------------------ |
-| `DATABASE_URL`       | `postgresql://localhost:5432/ghostr` | Postgres connection. The poll fails loudly if unreachable.              |
-| `POLL_CONCURRENCY`   | `4`                                  | Max ATS feeds fetched in parallel (polite per-host concurrency).        |
-| `REQUEST_TIMEOUT_MS` | `10000`                              | Per-request timeout for outbound feed fetches, in milliseconds.         |
-| `USER_AGENT`         | `ghostr-poller (+https://github.com/wu-wilson/ghostr)` | Identifies the poller to upstream ATS endpoints.    |
-| `REPOST_WINDOW_DAYS` | `30`                                 | A closed listing can still anchor a relist within this many days.       |
+| Variable             | Default                                                | Description                                                       |
+| -------------------- | ------------------------------------------------------ | ----------------------------------------------------------------- |
+| `DATABASE_URL`       | `postgresql://localhost:5432/ghostr`                   | Postgres connection. The poll fails loudly if unreachable.        |
+| `POLL_CONCURRENCY`   | `4`                                                    | Max ATS feeds fetched in parallel (polite per-host concurrency).  |
+| `REQUEST_TIMEOUT_MS` | `10000`                                                | Per-request timeout for outbound feed fetches, in milliseconds.   |
+| `USER_AGENT`         | `ghostr-poller (+https://github.com/wu-wilson/ghostr)` | Identifies the poller to upstream ATS endpoints.                  |
+| `REPOST_WINDOW_DAYS` | `30`                                                   | A closed listing can still anchor a relist within this many days. |
 
-The poll schedule lives in `poller/railway.json` via `cronSchedule` (`17 9 * * *` — daily 09:17 UTC).
+Schedule is defined in `poller/railway.json` via `cronSchedule` (currently `17 9 * * *` — daily 09:17 UTC).
