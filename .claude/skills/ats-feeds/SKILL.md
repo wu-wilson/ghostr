@@ -6,7 +6,7 @@ user-invocable: true
 
 # ATS Feeds
 
-How the poller fetches and normalizes each provider's **public** job board. One adapter per source under `poller/src/adapters/`. Every adapter returns the same normalized shape and **parses the raw payload with Zod first** (these APIs vary by tenant and drift over time — fetch one live response and derive the Zod schema from the actual payload before writing an adapter).
+How the cron fetches and normalizes each provider's **public** job board. One adapter per source under `cron/src/adapters/`. Every adapter returns the same normalized shape and **parses the raw payload with Zod first** (these APIs vary by tenant and drift over time — fetch one live response and derive the Zod schema from the actual payload before writing an adapter).
 
 ```ts
 // Normalized adapter output (per listing)
@@ -42,7 +42,7 @@ The data model's `ats_source` enum is `('greenhouse', 'lever', 'ashby')` — Wor
 
 ## Politeness / ethics
 
-- Identify with a descriptive `User-Agent` (`config.userAgent`, default `ghostr-poller (+https://github.com/wu-wilson/ghostr)`).
+- Identify with a descriptive `User-Agent` (`config.userAgent`, default `ghostr-cron (+https://github.com/wu-wilson/ghostr)`).
 - Per-request timeout (`REQUEST_TIMEOUT_MS`, default 10000ms) via AbortController; a couple of retries with backoff.
 - `p-limit` for small per-host concurrency (`POLL_CONCURRENCY`, default 4) plus a per-host delay.
 - Hit only these **public** endpoints — nothing behind a login. Store listing metadata only; never applicant data.

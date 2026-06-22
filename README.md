@@ -15,8 +15,8 @@
 └─────────────┼───────────────────────────┘
               │ HTTPS
 ┌─────────────┴───────────────┐    ┌────────────────┐
-│  Express API                │    │     Poller     │
-│  /api/postings  /api/stats  │    │  (daily cron)  │
+│  Express API                │    │      Cron      │
+│  /api/postings  /api/stats  │    │    (daily)     │
 │  /api/meta                  │    │  Greenhouse /  │
 │  /api/companies/:id/facts   │    │ Lever / Ashby  │
 └─────────────┬───────────────┘    └───────┬────────┘
@@ -42,7 +42,7 @@
 - pg + Zod
 - express-rate-limit
 
-#### Poller
+#### Cron
 
 - Node.js worker (TS)
 - undici / native fetch + Zod
@@ -77,17 +77,17 @@ The script installs dependencies on first run, then starts the API server on por
 
 > Requires Node.js 18+ and npm 9+.
 
-The poller is not started by `launch.sh` — it's a scheduled job that runs daily on Railway. To run a one-off poll locally: `cd poller && npm run poll`.
+The cron is not started by `launch.sh` — it's a scheduled job that runs daily on Railway. To run a one-off poll locally: `cd cron && npm run poll`.
 
 ## ☁️ Deployment
 
-Deployed on [Railway](https://railway.app) as three services: the client ships as a static build (`ghostr.dev`), the server runs as a separate API (`api.ghostr.dev`), and the poller runs daily to poll the ATS feeds. DNS via [Cloudflare](https://www.cloudflare.com).
+Deployed on [Railway](https://railway.app) as three services: the client ships as a static build (`ghostr.dev`), the server runs as a separate API (`api.ghostr.dev`), and the cron runs daily to poll the ATS feeds. DNS via [Cloudflare](https://www.cloudflare.com).
 
 ## ⚙️ Configuration
 
 Every variable ships with a working default — `./launch.sh` runs on a fresh clone with no env files; override only to change a default.
 
-- **Local dev** — create `client/.env`, `server/.env`, or `poller/.env` (all gitignored).
+- **Local dev** — create `client/.env`, `server/.env`, or `cron/.env` (all gitignored).
 - **Production (Railway)** — variables are set in each service's **Variables** tab.
 
 #### Client (`client/`)
@@ -105,14 +105,14 @@ Every variable ships with a working default — `./launch.sh` runs on a fresh cl
 | `ALLOWED_ORIGINS`          | `*`                                  | Comma-separated CORS allowlist. Set to `https://ghostr.dev` in prod. |
 | `READ_RATE_LIMIT_PER_HOUR` | `600`                                | Read requests/hr/IP across the GET endpoints.                        |
 
-#### Poller (`poller/`)
+#### Cron (`cron/`)
 
 | Variable             | Default                                                | Description                                                       |
 | -------------------- | ------------------------------------------------------ | ----------------------------------------------------------------- |
 | `DATABASE_URL`       | `postgresql://localhost:5432/ghostr`                   | Postgres connection. The poll fails loudly if unreachable.        |
 | `POLL_CONCURRENCY`   | `4`                                                    | Max ATS feeds fetched in parallel (polite per-host concurrency).  |
 | `REQUEST_TIMEOUT_MS` | `10000`                                                | Per-request timeout for outbound feed fetches, in milliseconds.   |
-| `USER_AGENT`         | `ghostr-poller (+https://github.com/wu-wilson/ghostr)` | Identifies the poller to upstream ATS endpoints.                  |
+| `USER_AGENT`         | `ghostr-cron (+https://github.com/wu-wilson/ghostr)` | Identifies the cron to upstream ATS endpoints.                  |
 | `REPOST_WINDOW_DAYS` | `30`                                                   | A closed listing can still anchor a relist within this many days. |
 
-Schedule is defined in `poller/railway.json` via `cronSchedule` (currently `17 9 * * *` — daily 09:17 UTC).
+Schedule is defined in `cron/railway.json` via `cronSchedule` (currently `17 9 * * *` — daily 09:17 UTC).

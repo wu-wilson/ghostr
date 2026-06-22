@@ -6,17 +6,17 @@ user-invocable: true
 
 # Audit Model
 
-How Ghostr turns raw daily observations into the public board. Source of truth: `schema.sql` (the `postings` view), `poller/src/reposts.ts` + `poller/src/normalize.ts` (linking), and the server's read routes. The product **never decides whether a job is "real"** and **never estimates time-to-fill** — it timestamps evidence and lets the reader conclude.
+How Ghostr turns raw daily observations into the public board. Source of truth: `schema.sql` (the `postings` view), `cron/src/reposts.ts` + `cron/src/normalize.ts` (linking), and the server's read routes. The product **never decides whether a job is "real"** and **never estimates time-to-fill** — it timestamps evidence and lets the reader conclude.
 
 ## Listing vs job
 
-- A **listing** is one individual posting ever seen on a feed — a job's original posting *and* each repost. One row per `(company_id, external_id)`. This is the poller's write model and the only place true-age and repost history can live (you can't derive them from aggregates).
-- A **job** is the logical role — a posting plus all of its reposts — owned by exactly one company. It has a surrogate identity PK so the poller can resolve a job's id *before* inserting a listing. A job's age always traces to `MIN(first_seen_on)` across its listings and is never reset by a relist.
+- A **listing** is one individual posting ever seen on a feed — a job's original posting *and* each repost. One row per `(company_id, external_id)`. This is the cron's write model and the only place true-age and repost history can live (you can't derive them from aggregates).
+- A **job** is the logical role — a posting plus all of its reposts — owned by exactly one company. It has a surrogate identity PK so the cron can resolve a job's id *before* inserting a listing. A job's age always traces to `MIN(first_seen_on)` across its listings and is never reset by a relist.
 
 ## Observation-pure true age
 
 - `first_seen_on` is strictly the date Ghostr **first observed** the listing on a feed — never backfilled from any ATS posting/created date (the adapters don't even read those fields).
-- Age = `current_date − first_seen_on`, in days, computed in **UTC** (the poller's "today" and the DB's `current_date` must agree, or ages drift by one).
+- Age = `current_date − first_seen_on`, in days, computed in **UTC** (the cron's "today" and the DB's `current_date` must agree, or ages drift by one).
 - Consequence: until polling history accrues, the board is young and sparse — most rows read near `0d`, few reposts. This is intentional; the methodology copy states it honestly. Stats start small (e.g. ~14 companies, a few hundred postings, single-digit-day median early on) — never hardcode dramatic mock numbers.
 
 ## Repost detection (linking listings into jobs)

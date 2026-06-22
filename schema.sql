@@ -17,7 +17,7 @@ CREATE TABLE companies (
 );
 
 -- A job = the logical role the board shows as one "posting". One per company; stable id across relists.
--- Surrogate PK so the poller knows a job's id *before* inserting its listings (avoids a
+-- Surrogate PK so the cron knows a job's id *before* inserting its listings (avoids a
 -- self-referential pointer, which can't be set at insert and would drop heads from the view).
 CREATE TABLE jobs (
   id          integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -27,7 +27,7 @@ CREATE TABLE jobs (
 CREATE INDEX jobs_company_idx ON jobs (company_id);
 
 -- One row per individual listing ever seen on a feed (a job's original posting + each repost).
--- The poller's write model.
+-- The cron's write model.
 CREATE TABLE listings (
   id             bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   company_id     integer NOT NULL REFERENCES companies(id) ON DELETE CASCADE,  -- kept for the natural key + per-company polling indexes (external_id is only unique within a company)

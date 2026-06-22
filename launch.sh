@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Launches both the Ghostr server and client for local development.
 #
-# The poller is NOT started here — it's a scheduled job (Railway daily cron).
-# Run it manually for a one-off poll: cd poller && npm run poll
+# The cron is NOT started here — it's a scheduled job (Railway daily cron).
+# Run it manually for a one-off poll: cd cron && npm run poll
 
 set -e
 
@@ -17,7 +17,7 @@ shutdown() {
 }
 trap shutdown EXIT INT TERM
 
-# Install dependencies if needed (client + server only — the poller is launched separately)
+# Install dependencies if needed (client + server only — the cron is launched separately)
 if [ ! -d "$ROOT_DIR/server/node_modules" ]; then
   echo "Installing server dependencies..."
   (cd "$ROOT_DIR/server" && npm install)

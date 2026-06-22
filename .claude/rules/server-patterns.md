@@ -30,7 +30,7 @@ paths:
 - Parameterized SQL queries (`$1`, `$2`) — never string-concatenate input.
 - `pg-pool` (`max: 10`), release in `finally` blocks.
 - Graceful degradation: if Postgres is unreachable, read endpoints return 503.
-- All date/age math is **UTC** — `current_date` and the poller's "today" must agree.
+- All date/age math is **UTC** — `current_date` and the cron's "today" must agree.
 
 ## Environment
 

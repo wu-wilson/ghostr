@@ -1,7 +1,7 @@
 {
-  "name": "ghostr-poller",
+  "name": "ghostr-cron",
   "version": "1.0.0",
-  "description": "Daily ATS feed poller for ghostr",
+  "description": "Daily ATS feed cron for ghostr",
   "main": "dist/index.js",
   "scripts": {
     "dev": "ts-node-dev --transpile-only src/index.ts",

@@ -3,7 +3,7 @@ paths:
   - "client/**/*.ts"
   - "client/**/*.tsx"
   - "server/**/*.ts"
-  - "poller/**/*.ts"
+  - "cron/**/*.ts"
 ---
 
 # Code Style
@@ -38,6 +38,6 @@ paths:
 
 - Pure functions, early returns, no deep nesting. 2-space indent, semicolons always, single quotes in code / double in JSX.
 - Try/catch all async operations with meaningful error messages; `finally` for cleanup, no silent swallowing.
-- In the poller, **isolate failures per company** — one feed 404/timeout must not abort the run; record it and continue.
+- In the cron, **isolate failures per company** — one feed 404/timeout must not abort the run; record it and continue.
 - No dead code, unused imports, unused exports, or speculative abstractions.
-- No `console.log` in client code. Server/poller may use `console.*` for operational logging only (run outcomes, per-company results, lifecycle, errors) — not for debugging.
+- No `console.log` in client code. Server/cron may use `console.*` for operational logging only (run outcomes, per-company results, lifecycle, errors) — not for debugging.

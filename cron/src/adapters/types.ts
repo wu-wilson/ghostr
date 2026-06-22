@@ -1,5 +1,5 @@
 /**
- * A single ATS listing normalized to the shape the poller persists. Every adapter
+ * A single ATS listing normalized to the shape the cron persists. Every adapter
  * produces these regardless of provider; null marks a field the feed did not supply.
  */
 export interface NormalizedListing {

@@ -3,7 +3,7 @@ import { Pool, QueryResult } from 'pg';
 import { config } from './config';
 import type { AtsSource } from './adapters';
 
-/** Single shared connection pool. The poller is a short-lived one-shot, so `max: 1` suffices. */
+/** Single shared connection pool. The cron is a short-lived one-shot, so `max: 1` suffices. */
 const pool = new Pool({ connectionString: config.databaseUrl, max: 1 });
 
 /** An active company row to poll. */

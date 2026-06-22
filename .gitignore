@@ -5,7 +5,7 @@ node_modules/
 dist/
 client/dist/
 server/dist/
-poller/dist/
+cron/dist/
 
 # Environment files
 .env
