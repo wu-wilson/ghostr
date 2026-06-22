@@ -17,14 +17,14 @@
 ┌─────────────┴───────────────┐    ┌────────────────┐
 │  Express API                │    │     Poller     │
 │  /api/postings  /api/stats  │    │  (daily cron)  │
-│  /api/meta                  │    │ Greenhouse /   │
+│  /api/meta                  │    │  Greenhouse /  │
 │  /api/companies/:id/facts   │    │ Lever / Ashby  │
-└──────────────┬──────────────┘    └───────┬────────┘
-               │                            │
-        ┌──────┴────────────────────────────┴──────┐
-        │                Postgres                  │
-        │   (companies · jobs · listings · runs)   │
-        └───────────────────────────────────────────┘
+└─────────────┬───────────────┘    └───────┬────────┘
+              │                            │
+      ┌───────┴────────────────────────────┴────┐
+      │                Postgres                 │
+      │  (companies · jobs · listings · runs)   │
+      └─────────────────────────────────────────┘
 ```
 
 ## 🚀 Stack
@@ -61,6 +61,8 @@ cd ghostr
 #### 2. Set up Postgres (one-time)
 
 ```bash
+brew install postgresql@18
+brew services start postgresql@18
 createdb ghostr
 psql ghostr -f schema.sql
 ```
@@ -75,11 +77,11 @@ The script installs dependencies on first run, then starts the API server on por
 
 > Requires Node.js 18+ and npm 9+.
 
-The poller is not started by `launch.sh` — it's a scheduled job that runs daily on Railway. To populate the database with a one-off poll: `cd poller && npm run poll`.
+The poller is not started by `launch.sh` — it's a scheduled job that runs daily on Railway. To run a one-off poll locally: `cd poller && npm run poll`.
 
 ## ☁️ Deployment
 
-Deployed on [Railway](https://railway.app) as three services plus a database: the client ships as a static build (`ghostr.dev`), the server runs as a separate API, and the poller runs as a daily cron that reads the ATS feeds and writes to the shared **Postgres** plugin. DNS via [Cloudflare](https://www.cloudflare.com).
+Deployed on [Railway](https://railway.app) as three services: the client ships as a static build (`ghostr.dev`), the server runs as a separate API (`api.ghostr.dev`), and the poller runs daily to poll the ATS feeds. DNS via [Cloudflare](https://www.cloudflare.com).
 
 ## ⚙️ Configuration
 
