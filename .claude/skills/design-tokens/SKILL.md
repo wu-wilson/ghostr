@@ -1,6 +1,6 @@
 ---
 name: design-tokens
-description: Exact color hex values, fonts, the scanline/gradient backdrop, and animation duration constants used in Ghostr.
+description: Exact color hex values, fonts, the scanline backdrop, and animation duration constants used in Ghostr.
 user-invocable: true
 ---
 
@@ -49,8 +49,7 @@ Both from Google Fonts.
 
 Defined once in `index.css`, understated:
 
-- Two layered `radial-gradient` glows — top-right and bottom-left — at roughly **5% white**.
-- A faint horizontal scanline: `repeating-linear-gradient` with a **4px period** at roughly **1.6% white**.
+- A faint horizontal scanline: `repeating-linear-gradient` with a **4px period** at roughly **1.6% white**, set on the root element so it reaches the iOS safe-area insets.
 
 ## Animation
 

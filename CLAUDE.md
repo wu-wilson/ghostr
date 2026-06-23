@@ -43,6 +43,6 @@ Ghostr is a job-posting auditor with a dark, editorial visual language. It polls
 
 ## Skills (reference knowledge)
 
-- `.claude/skills/design-tokens/` — Exact color hex values, fonts, the scanline/gradient backdrop, animation durations.
+- `.claude/skills/design-tokens/` — Exact color hex values, fonts, the scanline backdrop, animation durations.
 - `.claude/skills/audit-model/` — Listing vs job, observation-pure true age, repost detection, how each board number is derived, the `postings` view.
 - `.claude/skills/ats-feeds/` — Greenhouse / Lever / Ashby public endpoints, fields, quirks, salary extraction (Workday intentionally not implemented).

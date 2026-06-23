@@ -33,6 +33,16 @@
 
 @layer base {
   html {
+    /* Page color + a faint 4px-period scanline on the root, so the texture reaches the iOS
+       safe-area insets (notch / home indicator) and overscroll area instead of falling to black. */
+    @apply bg-page;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.016) 0,
+      rgba(255, 255, 255, 0.016) 1px,
+      transparent 1px,
+      transparent 4px
+    );
     overflow-x: hidden;
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
@@ -40,22 +50,11 @@
   }
 
   body {
-    @apply bg-page text-ink font-mono antialiased;
+    /* Transparent so the root's scanline shows through. */
+    @apply text-ink font-mono antialiased;
     font-size: 14px;
     line-height: 1.5;
     overscroll-behavior: none;
-    /* Two faint radial glows (top-right + bottom-left) over a 4px-period scanline. */
-    background-image:
-      radial-gradient(60vw 60vw at 100% 0%, rgba(255, 255, 255, 0.05), transparent 70%),
-      radial-gradient(60vw 60vw at 0% 100%, rgba(255, 255, 255, 0.05), transparent 70%),
-      repeating-linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.016) 0,
-        rgba(255, 255, 255, 0.016) 1px,
-        transparent 1px,
-        transparent 4px
-      );
-    background-attachment: fixed;
   }
 
   ::selection {

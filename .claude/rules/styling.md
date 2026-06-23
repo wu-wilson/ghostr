@@ -25,7 +25,7 @@ Dark, editorial audit aesthetic. No UI component libraries — build all compone
 
 ## Texture
 
-- The page carries subtle layered `radial-gradient` glows (top-right + bottom-left, ~5% white) plus a faint 4px-period horizontal scanline (`repeating-linear-gradient`, ~1.6% white). Keep it understated — defined once in `index.css`, not per-component.
+- The page carries a faint 4px-period horizontal scanline (`repeating-linear-gradient`, ~1.6% white), set on the root element so it reaches the iOS safe-area insets. Keep it understated — defined once in `index.css`, not per-component.
 
 ## Interactive States
 
