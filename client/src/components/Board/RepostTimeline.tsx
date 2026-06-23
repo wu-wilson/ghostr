@@ -23,14 +23,16 @@ export const RepostTimeline: React.FC<RepostTimelineProps> = ({ row }) => {
         {/* center line */}
         <div className="absolute left-0 right-0 top-1/2 bg-line-3" style={{ height: '1px' }} />
 
-        {/* relist ticks */}
-        {model.ticks.map((tick, index) => (
-          <div
-            key={index}
-            className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 bg-muted-1"
-            style={{ left: `${tick.leftPct}%`, width: '2px', height: '15px' }}
-          />
-        ))}
+        {/* relist ticks — inset so they sit between the endpoint dots, never under them */}
+        <div className="absolute inset-y-0" style={{ left: '13px', right: '13px' }}>
+          {model.ticks.map((tick, index) => (
+            <div
+              key={index}
+              className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 bg-muted-1"
+              style={{ left: `${tick.leftPct}%`, width: '2px', height: '15px' }}
+            />
+          ))}
+        </div>
 
         {/* endpoint dots */}
         <span
