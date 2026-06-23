@@ -49,7 +49,7 @@ Both from Google Fonts.
 
 Defined once in `index.css`, understated:
 
-- A faint horizontal scanline: `repeating-linear-gradient` with a **4px period** at roughly **1.6% white**, set on the root element so it reaches the iOS safe-area insets.
+- A faint horizontal scanline: `repeating-linear-gradient` with a **4px period** at roughly **1.6% white**, painted on a fixed full-viewport overlay (`body::before`) so it covers the iOS safe-area insets.
 
 ## Animation
 

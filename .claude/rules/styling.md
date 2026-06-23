@@ -25,7 +25,7 @@ Dark, editorial audit aesthetic. No UI component libraries — build all compone
 
 ## Texture
 
-- The page carries a faint 4px-period horizontal scanline (`repeating-linear-gradient`, ~1.6% white), set on the root element so it reaches the iOS safe-area insets. Keep it understated — defined once in `index.css`, not per-component.
+- The page carries a faint 4px-period horizontal scanline (`repeating-linear-gradient`, ~1.6% white), painted on a fixed full-viewport overlay (`body::before`) so it covers the iOS safe-area insets. Keep it understated — defined once in `index.css`, not per-component.
 
 ## Interactive States
 

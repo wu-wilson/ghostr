@@ -33,16 +33,8 @@
 
 @layer base {
   html {
-    /* Page color + a faint 4px-period scanline on the root, so the texture reaches the iOS
-       safe-area insets (notch / home indicator) and overscroll area instead of falling to black. */
+    /* Page color fills the canvas, including the iOS safe-area insets (notch / home indicator). */
     @apply bg-page;
-    background-image: repeating-linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.016) 0,
-      rgba(255, 255, 255, 0.016) 1px,
-      transparent 1px,
-      transparent 4px
-    );
     overflow-x: hidden;
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
@@ -50,11 +42,27 @@
   }
 
   body {
-    /* Transparent so the root's scanline shows through. */
     @apply text-ink font-mono antialiased;
     font-size: 14px;
     line-height: 1.5;
     overscroll-behavior: none;
+  }
+
+  /* Scanline texture as a fixed full-viewport layer behind content, so it covers the safe-area
+     insets too — a root background-image tiles only within the layout viewport on iOS. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.016) 0,
+      rgba(255, 255, 255, 0.016) 1px,
+      transparent 1px,
+      transparent 4px
+    );
   }
 
   ::selection {
