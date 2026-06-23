@@ -30,12 +30,19 @@ const FactRow: React.FC<{ label: string; value: string; first?: boolean }> = ({
 
 /**
  * The company-facts column. Aggregates are fetched lazily from `GET /api/companies/:id/facts`
- * when the row expands; a small loading line shows while it resolves.
+ * when the row expands. The fixed-label rows render immediately with placeholder values and fill
+ * in once the fetch resolves, so the column height stays stable and the expand animation doesn't
+ * reflow; the three fetched values show `—` if it fails.
  * @param props - The posting whose company facts to show
  * @returns The company-facts column body
  */
 export const CompanyFacts: React.FC<CompanyFactsProps> = ({ row }) => {
-  const { facts, loading, error } = useCompanyFacts(row.companyId);
+  const { facts, loading } = useCompanyFacts(row.companyId);
+
+  const placeholder = loading ? '·' : '—';
+  const rolesTracked = facts ? formatCount(facts.rolesTracked) : placeholder;
+  const currentlyOpen = facts ? formatCount(facts.currentlyOpen) : placeholder;
+  const repostRate = facts ? formatPercent(facts.repostRate) : placeholder;
 
   return (
     <div>
@@ -44,26 +51,10 @@ export const CompanyFacts: React.FC<CompanyFactsProps> = ({ row }) => {
       </div>
 
       <div className="mt-3">
-        {loading && (
-          <p className="text-muted-3" style={{ fontSize: '12px' }}>
-            loading facts…
-          </p>
-        )}
-
-        {!loading && error && (
-          <p className="text-muted-3" style={{ fontSize: '12px' }}>
-            facts unavailable
-          </p>
-        )}
-
-        {!loading && !error && facts && (
-          <>
-            <FactRow label="roles tracked" value={formatCount(facts.rolesTracked)} first />
-            <FactRow label="currently open" value={formatCount(facts.currentlyOpen)} />
-            <FactRow label="reposted ≥ once" value={formatPercent(facts.repostRate)} />
-            <FactRow label="salary on this listing" value={row.salaryText ?? 'withheld'} />
-          </>
-        )}
+        <FactRow label="roles tracked" value={rolesTracked} first />
+        <FactRow label="currently open" value={currentlyOpen} />
+        <FactRow label="reposted ≥ once" value={repostRate} />
+        <FactRow label="salary on this listing" value={row.salaryText ?? 'withheld'} />
       </div>
     </div>
   );
