@@ -48,9 +48,11 @@ export async function loadActiveCompanies(): Promise<CompanyRow[]> {
 }
 
 /**
- * Resolve the `job_id` for a newly appearing `external_id` by repost linking: reuse the
- * most recent listing for the same `(company_id, match_key)` that is still open or closed
- * within the repost window; otherwise create a fresh job.
+ * Resolve the `job_id` for a newly appearing `external_id` by repost linking: reuse the most
+ * recent listing for the same `(company_id, match_key)` that has since disappeared — `last_seen_on`
+ * before today, within the repost window — otherwise create a fresh job. Listings still present this
+ * poll (concurrent duplicate requisitions of the same role) are not linked and each start their own
+ * job. The test is `last_seen_on`, not `closed_on`, since close-out runs after this resolves.
  * @param companyId - The company the listing belongs to
  * @param matchKey - The normalized match key
  * @returns The resolved (existing or newly created) job id
@@ -61,7 +63,8 @@ export async function resolveJobId(companyId: number, matchKey: string): Promise
        FROM listings
       WHERE company_id = $1
         AND match_key = $2
-        AND (closed_on IS NULL OR closed_on >= CURRENT_DATE - $3::int)
+        AND last_seen_on < CURRENT_DATE
+        AND last_seen_on >= CURRENT_DATE - $3::int
       ORDER BY last_seen_on DESC, id DESC
       LIMIT 1`,
     [companyId, matchKey, config.repostWindowDays],

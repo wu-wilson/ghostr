@@ -24,7 +24,7 @@ How Ghostr turns raw daily observations into the public board. Source of truth: 
 When a **new** `external_id` first appears for a company:
 
 1. Compute its `match_key` via `normalize.ts`: lowercase, trim, collapse whitespace, strip punctuation, coalesce null parts to empty — over `title | location | department`.
-2. Find the **most recent** existing listing for the **same `company_id` + `match_key`** that is still open (`closed_on IS NULL`) **or** whose `closed_on >= today − REPOST_WINDOW_DAYS` (default **30**).
+2. Find the **most recent** existing listing for the **same `company_id` + `match_key`** that has **disappeared** — `last_seen_on < today` and `last_seen_on >= today − REPOST_WINDOW_DAYS` (default **30**). A repost requires the prior posting to have gone away first; listings still present in this poll (concurrent duplicate requisitions of the same role) are not linked and start their own job. (`last_seen_on`, not `closed_on`, since close-out runs after this step.)
 3. If found → reuse its `job_id` (this listing is a relist of that role). Otherwise → `INSERT INTO jobs (company_id) … RETURNING id` and use the new id.
 4. Insert the listing with the resolved `job_id` — always set, never null.
 

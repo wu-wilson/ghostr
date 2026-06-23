@@ -23,8 +23,8 @@ async function findExistingJobId(
  * Resolve the `job_id` to attach to a listing about to be upserted.
  *
  * If the `external_id` already exists, its job id is kept (the upsert only refreshes the
- * existing row). Otherwise the listing is new: link it into the most recent in-window job
- * sharing its `match_key` (a repost), or create a fresh job when none qualifies.
+ * existing row). Otherwise the listing is new: link it into the job of a recently-disappeared
+ * listing with the same `match_key` (a repost), or create a fresh job when none qualifies.
  * @param companyId - The owning company id
  * @param externalId - The provider-stable external id
  * @param matchKey - The normalized match key
