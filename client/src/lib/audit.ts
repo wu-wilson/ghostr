@@ -83,8 +83,6 @@ export interface TimelineModel {
   firstLabel: string;
   /** One-line summary beneath the track. */
   summary: string;
-  /** Age in days of the most recent relist, or null when never reposted. */
-  latestRepostAge: number | null;
 }
 
 /**
@@ -92,7 +90,7 @@ export interface TimelineModel {
  * Each relist tick is placed by its real first-seen date across the first-seen → now span,
  * so first-seen sits at 0% and now at 100%.
  * @param row - The posting
- * @returns Tick positions, endpoint label, summary line, and the latest relist age
+ * @returns Tick positions, endpoint label, and summary line
  */
 export function timelineModel(row: PostingRow): TimelineModel {
   const firstAge = ageInDays(row.firstSeenOn);
@@ -115,6 +113,5 @@ export function timelineModel(row: PostingRow): TimelineModel {
     ticks,
     firstLabel: `first seen · ${firstAge}d ago`,
     summary,
-    latestRepostAge,
   };
 }

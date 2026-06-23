@@ -4,9 +4,3 @@ export const DURATION = {
   normal: 200,
   smooth: 300,
 } as const;
-
-/** Easing curves for CSS transitions. */
-export const EASE = {
-  out: 'cubic-bezier(0.16, 1, 0.3, 1)',
-  inOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
-} as const;

@@ -22,7 +22,7 @@ export interface CompanyRow {
  * Run a parameterized query against the pool.
  * @param text - SQL with `$1`, `$2`, ... placeholders; never interpolate input
  * @param params - Values bound to the placeholders, in order
- * @returns The raw `pg` `QueryResult`
+ * @returns The unwrapped driver result; read `.rows` for the selected records
  */
 export async function query(text: string, params?: unknown[]): Promise<QueryResult> {
   return pool.query(text, params);

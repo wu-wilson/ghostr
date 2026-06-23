@@ -7,7 +7,7 @@ paths:
 
 ## Routes
 
-- One route handler per file under `server/src/routes/` (`postings.ts`, `stats.ts`, `meta.ts`; company facts live with the posting/company reads).
+- One route handler per file under `server/src/routes/` (`postings.ts`, `stats.ts`, `meta.ts`, `companies.ts`), each mounted under `/api`.
 - Validate every input with Zod before business logic — query params on `/api/postings` (`search`, `filter` ∈ `all|old|hidden|reposted`, `sort` ∈ `oldest|reposted|newest`, `limit`, `offset`) and the `:id` on company facts.
 - SQL/business logic in `server/src/services/` (`db.ts` owns the pool + query helpers), not in handlers.
 - Single tail error-handling middleware in `middleware/errorHandler.ts`.
