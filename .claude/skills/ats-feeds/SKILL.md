@@ -42,7 +42,7 @@ The data model's `ats_source` enum is `('greenhouse', 'lever', 'ashby')` — Wor
 
 ## Politeness / ethics
 
-- Identify with a descriptive `User-Agent` (`config.userAgent`, default `ghostr (+https://ghostr.dev)`).
+- Identify with a descriptive `User-Agent` (`config.userAgent`, default `ghostr (+https://github.com/wu-wilson/ghostr)`; production sets `ghostr (+https://ghostr.dev)`).
 - Per-request timeout (`REQUEST_TIMEOUT_MS`, default 10000ms) via AbortController; a couple of retries with backoff.
 - A small inline concurrency limiter (no `p-limit`) bounds parallel feeds (`POLL_CONCURRENCY`, default 4) plus a per-host delay.
 - Hit only these **public** endpoints — nothing behind a login. Store listing metadata only; never applicant data.

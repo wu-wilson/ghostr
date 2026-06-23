@@ -107,12 +107,12 @@ Every variable ships with a working default — `./launch.sh` runs on a fresh cl
 
 #### Cron (`cron/`)
 
-| Variable             | Default                              | Description                                                       |
-| -------------------- | ------------------------------------ | ----------------------------------------------------------------- |
-| `DATABASE_URL`       | `postgresql://localhost:5432/ghostr` | Postgres connection. The poll fails loudly if unreachable.        |
-| `POLL_CONCURRENCY`   | `4`                                  | Max ATS feeds fetched in parallel (polite per-host concurrency).  |
-| `REQUEST_TIMEOUT_MS` | `10000`                              | Per-request timeout for outbound feed fetches, in milliseconds.   |
-| `USER_AGENT`         | `ghostr (+https://ghostr.dev)`       | Identifies the cron to upstream ATS endpoints.                    |
-| `REPOST_WINDOW_DAYS` | `30`                                 | A closed listing can still anchor a relist within this many days. |
+| Variable             | Default                                         | Description                                                                           |
+| -------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `DATABASE_URL`       | `postgresql://localhost:5432/ghostr`            | Postgres connection. The poll fails loudly if unreachable.                            |
+| `POLL_CONCURRENCY`   | `4`                                             | Max ATS feeds fetched in parallel (polite per-host concurrency).                      |
+| `REQUEST_TIMEOUT_MS` | `10000`                                         | Per-request timeout for outbound feed fetches, in milliseconds.                       |
+| `USER_AGENT`         | `ghostr (+https://github.com/wu-wilson/ghostr)` | Identifies the cron to ATS endpoints; production sets `ghostr (+https://ghostr.dev)`. |
+| `REPOST_WINDOW_DAYS` | `30`                                            | A closed listing can still anchor a relist within this many days.                     |
 
 Schedule is defined in `cron/railway.json` via `cronSchedule` (currently `17 9 * * *` — daily 09:17 UTC).

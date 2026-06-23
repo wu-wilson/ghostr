@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 /** Default User-Agent identifying the cron to public ATS endpoints. */
-const DEFAULT_USER_AGENT = 'ghostr (+https://ghostr.dev)';
+const DEFAULT_USER_AGENT = 'ghostr (+https://github.com/wu-wilson/ghostr)';
 
 /** Typed, frozen configuration loaded from environment variables at startup. */
 export const config = {
