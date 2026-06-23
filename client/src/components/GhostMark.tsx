@@ -14,7 +14,7 @@ export const GhostMark: React.FC<GhostMarkProps> = ({ onClick }) => (
   <button
     type="button"
     onClick={onClick}
-    className="flex items-center gap-2 text-ink"
+    className="flex items-center gap-1 text-ink"
     aria-label="ghostr — back to board"
   >
     <span
