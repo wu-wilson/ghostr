@@ -1,6 +1,6 @@
 ## ⚡ Overview
 
-[**Ghostr**](https://ghostr.dev) is a job-posting auditor: it polls public ATS feeds once a day, tracks every open listing over time, and detects relists — so it can surface each posting's _true_ first-seen age and stale "ghost jobs" can't pass themselves off as posted today.
+[**Ghostr**](https://ghostr.dev) is a job-posting auditor. It polls public ATS feeds daily, tracking each listing's true first-seen age and every quiet relist, so stale "ghost jobs" can't pass themselves off as freshly posted.
 
 ## 🔭 Architecture
 
