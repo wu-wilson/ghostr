@@ -38,7 +38,9 @@ export const TopBar: React.FC = () => {
         <button
           type="button"
           onClick={openMethodology}
-          className="transition-colors hover:text-ink md:border-l md:border-line-2 md:pl-3"
+          className={`transition-colors hover:text-ink${
+            meta?.lastPolledAt ? ' md:border-l md:border-line-2 md:pl-3' : ''
+          }`}
           style={{ transitionDuration: `${DURATION.fast}ms` }}
         >
           methodology

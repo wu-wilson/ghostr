@@ -21,7 +21,7 @@ Mobile-first, with a single primary breakpoint at **~760px** (define it as the T
 - **Posting rows** reflow from a single desktop grid line into a stacked `grid-template-areas` block, with small uppercase mono micro-labels above each value (first seen / role & company / source / reposts / salary). The desktop-only column header is hidden on mobile.
 - **Expanded detail** goes from 3 columns to a single stacked column.
 - **Controls row** (search, filter chips, sort) stacks vertically.
-- The top bar's `last poll · {time}` stamp is **desktop-only**.
+- The top bar's `last poll · {time}` stamp — and its `|` separator — is **desktop-only** and renders only once a poll has run.
 
 ## Viewport
 
